@@ -12,13 +12,14 @@ Operations sentence = new Operations();
 
 while (true)
 {
-    Console.WriteLine("Введите знак операции ('+', '-', '*', '/') для продолжения вычислений или \'=\' для завершения вычислений и отображения результата.\nДля отображения истории текущего сеанса введите \'@\':");
+    Console.WriteLine("Введите знак операции ('+', '-', '*', '/') для продолжения вычислений или \'=\' для завершения вычислений и отображения результата.");
+    Console.WriteLine("Для отображения истории текущего сеанса введите '@'.");
     Console.WriteLine("Для выхода из программы введите \'#\'");
     input = Console.ReadLine();
     if (input == "=")
     {
         Console.WriteLine($"Результат: {num1}");
-        Console.WriteLine("Введите первое число:");
+        Console.WriteLine("Введите число:");
         num1 = Convert.ToDouble(Console.ReadLine());
     }
     else if (input == "@")
@@ -29,10 +30,10 @@ while (true)
         if (inputHist == "!")
         {
             sentence.CleanCache();
-            Console.WriteLine("Введите первое число:");
+            Console.WriteLine("Введите число:");
             num1 = Convert.ToDouble(Console.ReadLine());
         }
-        else if(inputHist == "$")
+        else if (inputHist == "$")
         {
             continue;
         }
@@ -46,28 +47,33 @@ while (true)
         sign = input;
 
         Console.WriteLine("Введите следующее число:");
-
         num2 = Convert.ToDouble(Console.ReadLine());
 
-        switch (sign)
+        try
         {
-            case "+":
-                tempRes = sentence.Add(num1, num2);
-                break;
-            case "-":
-                tempRes = sentence.Subtract(num1, num2);
-                break;
-            case "*":
-                tempRes = sentence.Multiply(num1, num2);
-                break;
-            case "/":
-                tempRes = sentence.Divide(num1, num2);
-                break;
+            switch (sign)
+            {
+                case "+":
+                    tempRes = sentence.Add(num1, num2);
+                    break;
+                case "-":
+                    tempRes = sentence.Subtract(num1, num2);
+                    break;
+                case "*":
+                    tempRes = sentence.Multiply(num1, num2);
+                    break;
+                case "/":
+                    tempRes = sentence.Divide(num1, num2);
+                    break;
+            }
+            sentence.Cache = $"{num1} {sign} {num2} = {tempRes}";
+            num1 = tempRes;
         }
-        sentence.Cache = $"{num1} {sign} {num2} = {tempRes}";
-        num1 = tempRes;
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("Ошибка: на ноль делить нельзя!");
+            Console.WriteLine("Введите число:");
+            num2 = Convert.ToDouble(Console.ReadLine());
+        }
     }
-    //Console.ReadKey();
 }
-
-
