@@ -1,7 +1,8 @@
 ﻿using Calculator;
 
 Console.WriteLine("Введите первое число:");
-double num1 = Convert.ToDouble(Console.ReadLine());
+//double num1 = Convert.ToDouble(Console.ReadLine());
+double num1 = GetNum(Console.ReadLine());
 
 double num2 = 0;
 string sign = "";
@@ -20,7 +21,7 @@ while (true)
     {
         Console.WriteLine($"Результат: {num1}");
         Console.WriteLine("Введите число:");
-        num1 = Convert.ToDouble(Console.ReadLine());
+        num1 = GetNum(Console.ReadLine());
     }
     else if (input == "@")
     {
@@ -31,7 +32,7 @@ while (true)
         {
             sentence.CleanCache();
             Console.WriteLine("Введите число:");
-            num1 = Convert.ToDouble(Console.ReadLine());
+            num1 = GetNum(Console.ReadLine());
         }
         else if (inputHist == "$")
         {
@@ -42,12 +43,12 @@ while (true)
     {
         break;
     }
-    else
+    else if (input == "+" ||  input == "-" || input == "*" || input == "/")
     {
         sign = input;
 
         Console.WriteLine("Введите следующее число:");
-        num2 = Convert.ToDouble(Console.ReadLine());
+        num2 = GetNum(Console.ReadLine());
 
         try
         {
@@ -73,7 +74,28 @@ while (true)
         {
             Console.WriteLine("Ошибка: на ноль делить нельзя!");
             Console.WriteLine("Введите число:");
-            num2 = Convert.ToDouble(Console.ReadLine());
+            num2 = GetNum(Console.ReadLine());
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+    else
+    {
+        Console.WriteLine("Ошибка: недопустимый ввод!");
+    }
+}
+
+double GetNum(string input)
+{
+    if (double.TryParse(input, out double num))
+    {
+        return num;
+    }
+    else
+    {
+        Console.WriteLine("Ошибка: недопустимый ввод!");
+        return 0;
     }
 }
