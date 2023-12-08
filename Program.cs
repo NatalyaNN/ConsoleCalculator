@@ -72,18 +72,18 @@ while (true)
         }
         catch (DivideByZeroException)
         {
-            Console.WriteLine("Ошибка: на ноль делить нельзя!");
+            ShowError("Ошибка: на ноль делить нельзя!");
             Console.WriteLine("Введите число:");
             num2 = GetNum(Console.ReadLine());
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            ShowError(e.Message);
         }
     }
     else
     {
-        Console.WriteLine("Ошибка: недопустимый ввод!");
+        ShowError("Ошибка: недопустимый ввод!");
     }
 }
 
@@ -95,7 +95,15 @@ double GetNum(string input)
     }
     else
     {
-        Console.WriteLine("Ошибка: недопустимый ввод!");
+        ShowError("Ошибка: недопустимый ввод!");
         return 0;
     }
+}
+
+void ShowError(string message)
+{
+    //Console.BackgroundColor = ConsoleColor.Red;
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(message);
+    Console.ResetColor();
 }
