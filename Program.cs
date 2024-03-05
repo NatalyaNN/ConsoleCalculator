@@ -1,7 +1,6 @@
 ﻿using Calculator;
 
 Console.WriteLine("Введите первое число:");
-//double num1 = Convert.ToDouble(Console.ReadLine());
 double num1 = GetNum(Console.ReadLine());
 
 double num2 = 0;
